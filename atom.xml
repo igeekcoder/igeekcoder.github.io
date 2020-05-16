@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>GeekCoder</title>
+  
+  <subtitle>极客码农</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://www.igeekcoder.com/"/>
+  <updated>2020-05-16T07:50:24.054Z</updated>
+  <id>http://www.igeekcoder.com/</id>
+  
+  <author>
+    <name>EthanXQ</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mysql</title>
+    <link href="http://www.igeekcoder.com/2020/05/16/mysql/"/>
+    <id>http://www.igeekcoder.com/2020/05/16/mysql/</id>
+    <published>2020-05-16T07:50:14.475Z</published>
+    <updated>2020-05-16T07:50:24.054Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h1><h4 id="索引算法"><a href="#索引算法" class="headerlink" title="索引算法"></a>索引算法</h4><p>hash算法</p><p>​    优点单挑查询快 时间复杂度O(1);</p><p>​    缺点：不支持范围查找、不支持排序、避免不了全表扫描</p><p> B+树算法</p><p>​    优点：支持排序、数据存在所有叶子节点</p><p>​    缺点：单条查找速度比hash慢</p><p>索引的原理：</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;mysql&quot;&gt;&lt;a href=&quot;#mysql&quot; class=&quot;headerlink&quot; title=&quot;mysql&quot;&gt;&lt;/a&gt;mysql&lt;/h1&gt;&lt;h4 id=&quot;索引算法&quot;&gt;&lt;a href=&quot;#索引算法&quot; class=&quot;headerlink&quot; title=&quot;索引算法&quot;
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>First_Blog</title>
+    <link href="http://www.igeekcoder.com/2020/05/16/First_Blog/"/>
+    <id>http://www.igeekcoder.com/2020/05/16/First_Blog/</id>
+    <published>2020-05-16T07:13:16.271Z</published>
+    <updated>2020-05-16T07:18:31.259Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>新的开始决定以博客的形式记录分享学习的笔记，内容以java为主，技术栈包含<code>spring 全家桶</code>、<code>Java基础</code>、<code>mysql</code>、<code>dubbo</code>、<code>zookeeper</code>、<code>kafka</code>、<code>netty</code>、<code>ELK</code>、<code>nosql</code> 等等分布式或微服务场景常用的技术   let’s do it！</p></blockquote><p><img src="/2020/05/16/First_Blog/timg-1588761416214-1588762807786.jpg" alt="timg-1588761416214-1588762807786"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;新的开始决定以博客的形式记录分享学习的笔记，内容以java为主，技术栈包含&lt;code&gt;spring 全家桶&lt;/code&gt;、&lt;code&gt;Java基础&lt;/code&gt;、&lt;code&gt;mysql&lt;/code&gt;、&lt;code&gt;dubbo&lt;/code&gt;、&lt;code
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
