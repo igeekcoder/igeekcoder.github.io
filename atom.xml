@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.igeekcoder.com/"/>
-  <updated>2020-05-16T07:50:24.054Z</updated>
+  <updated>2020-05-16T10:07:20.359Z</updated>
   <id>http://www.igeekcoder.com/</id>
   
   <author>
@@ -17,35 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>mysql</title>
-    <link href="http://www.igeekcoder.com/2020/05/16/mysql/"/>
-    <id>http://www.igeekcoder.com/2020/05/16/mysql/</id>
-    <published>2020-05-16T07:50:14.475Z</published>
-    <updated>2020-05-16T07:50:24.054Z</updated>
+    <title>如何使用Hexo搭建自己的个人博客</title>
+    <link href="http://www.igeekcoder.com/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://www.igeekcoder.com/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
+    <published>2020-05-16T08:26:24.000Z</published>
+    <updated>2020-05-16T10:07:20.359Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h1><h4 id="索引算法"><a href="#索引算法" class="headerlink" title="索引算法"></a>索引算法</h4><p>hash算法</p><p>​    优点单挑查询快 时间复杂度O(1);</p><p>​    缺点：不支持范围查找、不支持排序、避免不了全表扫描</p><p> B+树算法</p><p>​    优点：支持排序、数据存在所有叶子节点</p><p>​    缺点：单条查找速度比hash慢</p><p>索引的原理：</p>]]></content>
+    <content type="html"><![CDATA[<img src="/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20200516163743725.png" alt="image-20200516163743725" style="zoom:150%;"><h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h2><blockquote><ol><li>注册一个GitHub账号  </li><li>安装git、node.js（自行安装很简单 直接下一步到底）</li><li>条件允许的话可以申请一个个人的域名 （非必须）</li></ol></blockquote><h2 id="2-创建仓库"><a href="#2-创建仓库" class="headerlink" title="2.创建仓库"></a>2.创建仓库</h2><p>创建一个名为<code>你的用户名.github.io</code>的仓库，比如我的github用户名为 <code>igeekcoder</code>,即创建一个名称为<code>igeekcoder.github.io</code> 的仓库（其他名称默认无效）， 如下图其它内容可以不用填写勾选，点击Create repository 即可创建。</p><p>ps: 由于我已经创建过了它会提示我仓库已存在</p><p><img src="/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20200516173407937.png" alt="image-20200516173407937"></p><h2 id="3-配置SSH-Key"><a href="#3-配置SSH-Key" class="headerlink" title="3.配置SSH Key"></a>3.配置SSH Key</h2><h4 id="3-1-检查本机是否已经有SSH-Key。"><a href="#3-1-检查本机是否已经有SSH-Key。" class="headerlink" title="3-1.检查本机是否已经有SSH Key。"></a>3-1.检查本机是否已经有SSH Key。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$cd &#x2F;.ssh #检查本机已存在的ssh密钥</span><br></pre></td></tr></table></figure><img src="/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20200516174437602.png" alt="image-20200516174437602" style="zoom:150%;"><p>如果提示：<code>No such file or directory</code> 说明你是第一次使用git。</p><h4 id="3-2-生成你的SSH-Key"><a href="#3-2-生成你的SSH-Key" class="headerlink" title="3-2.生成你的SSH Key"></a>3-2.生成你的SSH Key</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C "你的邮箱地址"</span><br></pre></td></tr></table></figure><p>使用以上命令直接回车，不用填写东西。之后会让你输入密码（可以不输入密码，直接为空，这样更新代码不用每次输入 id_rsa 密码了）。然后就生成一个目录.ssh ，里面有两个文件：id_rsa , id_rsa.pub（id_rsa中保存的是私钥，id_rsa.pub中保存的是公钥）</p><h4 id="3-3-添加SSH-Key到GitHub"><a href="#3-3-添加SSH-Key到GitHub" class="headerlink" title="3-3.添加SSH Key到GitHub"></a>3-3.添加SSH Key到GitHub</h4><p>将公钥id_rsa.pub的内容复制到 Settings &gt;&gt; SSH And GPG keys &gt;&gt; new 新创建一个SSH Key</p><p><img src="/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20200516175723532.png" alt="image-20200516175723532"></p><p>使用一下命令测试是否成功</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br></pre></td></tr></table></figure><img src="/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/image-20200516180041606.png" alt="image-20200516180041606" style="zoom:150%;"><h2 id="4-安装Hexo"><a href="#4-安装Hexo" class="headerlink" title="4.安装Hexo"></a>4.安装Hexo</h2>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;mysql&quot;&gt;&lt;a href=&quot;#mysql&quot; class=&quot;headerlink&quot; title=&quot;mysql&quot;&gt;&lt;/a&gt;mysql&lt;/h1&gt;&lt;h4 id=&quot;索引算法&quot;&gt;&lt;a href=&quot;#索引算法&quot; class=&quot;headerlink&quot; title=&quot;索引算法&quot;
+        &lt;img src=&quot;/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE
       
     
     </summary>
     
     
     
+      <category term="hexo" scheme="http://www.igeekcoder.com/tags/hexo/"/>
+    
   </entry>
   
   <entry>
     <title>First_Blog</title>
-    <link href="http://www.igeekcoder.com/2020/05/16/First_Blog/"/>
-    <id>http://www.igeekcoder.com/2020/05/16/First_Blog/</id>
-    <published>2020-05-16T07:13:16.271Z</published>
-    <updated>2020-05-16T07:18:31.259Z</updated>
+    <link href="http://www.igeekcoder.com/2020/05/01/First_Blog/"/>
+    <id>http://www.igeekcoder.com/2020/05/01/First_Blog/</id>
+    <published>2020-05-01T08:02:41.000Z</published>
+    <updated>2020-05-01T08:02:41.000Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>新的开始决定以博客的形式记录分享学习的笔记，内容以java为主，技术栈包含<code>spring 全家桶</code>、<code>Java基础</code>、<code>mysql</code>、<code>dubbo</code>、<code>zookeeper</code>、<code>kafka</code>、<code>netty</code>、<code>ELK</code>、<code>nosql</code> 等等分布式或微服务场景常用的技术   let’s do it！</p></blockquote><p><img src="/2020/05/16/First_Blog/timg-1588761416214-1588762807786.jpg" alt="timg-1588761416214-1588762807786"></p>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>新的开始决定以博客的形式记录分享学习的笔记，内容以java为主，技术栈包含<code>spring 全家桶</code>、<code>Java基础</code>、<code>mysql</code>、<code>dubbo</code>、<code>zookeeper</code>、<code>kafka</code>、<code>netty</code>、<code>ELK</code>、<code>nosql</code> 等等分布式或微服务场景常用的技术   let’s do it！</p></blockquote><p><img src="/2020/05/01/First_Blog/timg-1588761416214-1588762807786.jpg" alt="timg-1588761416214-1588762807786"></p>]]></content>
     
     <summary type="html">
     
