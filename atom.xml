@@ -3,11 +3,11 @@
   <title>GeekCoder</title>
   
   <subtitle>极客码农</subtitle>
-  <link href="/test_page/atom.xml" rel="self"/>
+  <link href="/atom.xml" rel="self"/>
   
-  <link href="http://www.igeekcoder.com/test_page/"/>
+  <link href="http://www.igeekcoder.com/"/>
   <updated>2020-07-26T16:22:56.319Z</updated>
-  <id>http://www.igeekcoder.com/test_page/</id>
+  <id>http://www.igeekcoder.com/</id>
   
   <author>
     <name>EthanXQ</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>重构之设计模式</title>
-    <link href="http://www.igeekcoder.com/test_page/2020/07/26/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://www.igeekcoder.com/test_page/2020/07/26/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
+    <link href="http://www.igeekcoder.com/2020/07/26/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://www.igeekcoder.com/2020/07/26/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
     <published>2020-07-26T04:12:46.025Z</published>
     <updated>2020-07-26T16:22:56.319Z</updated>
     
@@ -40,8 +40,8 @@
   
   <entry>
     <title>NIO-buffer</title>
-    <link href="http://www.igeekcoder.com/test_page/2020/07/12/NIO-buffer/"/>
-    <id>http://www.igeekcoder.com/test_page/2020/07/12/NIO-buffer/</id>
+    <link href="http://www.igeekcoder.com/2020/07/12/NIO-buffer/"/>
+    <id>http://www.igeekcoder.com/2020/07/12/NIO-buffer/</id>
     <published>2020-07-12T12:31:27.572Z</published>
     <updated>2020-07-12T12:35:17.005Z</updated>
     
@@ -65,8 +65,8 @@
   
   <entry>
     <title>Git使用小技巧</title>
-    <link href="http://www.igeekcoder.com/test_page/2020/07/01/Git%E4%BD%BF%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
-    <id>http://www.igeekcoder.com/test_page/2020/07/01/Git%E4%BD%BF%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/</id>
+    <link href="http://www.igeekcoder.com/2020/07/01/Git%E4%BD%BF%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    <id>http://www.igeekcoder.com/2020/07/01/Git%E4%BD%BF%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/</id>
     <published>2020-07-01T02:19:49.199Z</published>
     <updated>2020-07-01T02:23:51.257Z</updated>
     
@@ -87,8 +87,8 @@
   
   <entry>
     <title>GitFlow工作流</title>
-    <link href="http://www.igeekcoder.com/test_page/2020/05/20/GitFlow%E5%B7%A5%E4%BD%9C%E6%B5%81/"/>
-    <id>http://www.igeekcoder.com/test_page/2020/05/20/GitFlow%E5%B7%A5%E4%BD%9C%E6%B5%81/</id>
+    <link href="http://www.igeekcoder.com/2020/05/20/GitFlow%E5%B7%A5%E4%BD%9C%E6%B5%81/"/>
+    <id>http://www.igeekcoder.com/2020/05/20/GitFlow%E5%B7%A5%E4%BD%9C%E6%B5%81/</id>
     <published>2020-05-20T06:50:51.000Z</published>
     <updated>2020-06-03T02:17:24.337Z</updated>
     
@@ -105,14 +105,14 @@
     
     
     
-      <category term="-Git" scheme="http://www.igeekcoder.com/test_page/tags/Git/"/>
+      <category term="-Git" scheme="http://www.igeekcoder.com/tags/Git/"/>
     
   </entry>
   
   <entry>
     <title>设计模式-模板方法</title>
-    <link href="http://www.igeekcoder.com/test_page/2020/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/"/>
-    <id>http://www.igeekcoder.com/test_page/2020/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</id>
+    <link href="http://www.igeekcoder.com/2020/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/"/>
+    <id>http://www.igeekcoder.com/2020/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</id>
     <published>2020-05-16T10:15:01.000Z</published>
     <updated>2020-05-23T12:13:08.082Z</updated>
     
@@ -131,14 +131,14 @@
     
     
     
-      <category term="设计模式" scheme="http://www.igeekcoder.com/test_page/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="设计模式" scheme="http://www.igeekcoder.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>Mybatis进阶（一）</title>
-    <link href="http://www.igeekcoder.com/test_page/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/"/>
-    <id>http://www.igeekcoder.com/test_page/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/</id>
+    <link href="http://www.igeekcoder.com/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/"/>
+    <id>http://www.igeekcoder.com/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/</id>
     <published>2020-05-16T10:15:01.000Z</published>
     <updated>2020-07-04T14:16:10.331Z</updated>
     
@@ -155,14 +155,14 @@
     
     
     
-      <category term="Mybatis" scheme="http://www.igeekcoder.com/test_page/tags/Mybatis/"/>
+      <category term="Mybatis" scheme="http://www.igeekcoder.com/tags/Mybatis/"/>
     
   </entry>
   
   <entry>
     <title>如何使用Hexo搭建自己的个人博客</title>
-    <link href="http://www.igeekcoder.com/test_page/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://www.igeekcoder.com/test_page/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
+    <link href="http://www.igeekcoder.com/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://www.igeekcoder.com/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
     <published>2020-05-16T08:26:24.000Z</published>
     <updated>2020-05-16T10:07:20.359Z</updated>
     
@@ -179,14 +179,14 @@
     
     
     
-      <category term="hexo" scheme="http://www.igeekcoder.com/test_page/tags/hexo/"/>
+      <category term="hexo" scheme="http://www.igeekcoder.com/tags/hexo/"/>
     
   </entry>
   
   <entry>
     <title>First_Blog</title>
-    <link href="http://www.igeekcoder.com/test_page/2020/05/01/First_Blog/"/>
-    <id>http://www.igeekcoder.com/test_page/2020/05/01/First_Blog/</id>
+    <link href="http://www.igeekcoder.com/2020/05/01/First_Blog/"/>
+    <id>http://www.igeekcoder.com/2020/05/01/First_Blog/</id>
     <published>2020-05-01T08:02:41.000Z</published>
     <updated>2020-05-01T08:02:41.000Z</updated>
     
