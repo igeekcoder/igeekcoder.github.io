@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>重构之常用设计模式 | GeekCoder | 记录学习，分享生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="设计模式,重构">
+    <meta name="description" content="重构之常用设计模式程序员三板斧：数据结构、算法、设计模式 作为程序员无论你学习使用的是哪种语言，这三板斧都需要涉及甚至是需要深入了解的，这也是一个程序员基本功的展现，最近在做一些业务代码的重构也尝试使用了一些设计模式，今天和大家聊一聊我的一些见解和工作常用的一些设计模式 设计模式是什么？ 设计模式（Design Pattern）是一套被反复使用、多数人知晓的、经过分类的、代码设计经验的总结。使用设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重构之常用设计模式">
+<meta property="og:url" content="http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="GeekCoder">
+<meta property="og:description" content="重构之常用设计模式程序员三板斧：数据结构、算法、设计模式 作为程序员无论你学习使用的是哪种语言，这三板斧都需要涉及甚至是需要深入了解的，这也是一个程序员基本功的展现，最近在做一些业务代码的重构也尝试使用了一些设计模式，今天和大家聊一聊我的一些见解和工作常用的一些设计模式 设计模式是什么？ 设计模式（Design Pattern）是一套被反复使用、多数人知晓的、经过分类的、代码设计经验的总结。使用设">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2222997-69678af9fd117ec3.webp">
+<meta property="og:image" content="http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2222997-7caeb17aacd80332.webp">
+<meta property="og:image" content="http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2222997-f9f28c8d942ebd8d.webp">
+<meta property="og:image" content="http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20200727001143558.png">
+<meta property="og:image" content="http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20200727001352214.png">
+<meta property="article:published_time" content="2020-05-16T10:15:01.000Z">
+<meta property="article:modified_time" content="2020-11-19T02:53:54.240Z">
+<meta property="article:author" content="XiaQi">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="重构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2222997-69678af9fd117ec3.webp">
+    
+        <link rel="alternate" type="application/atom+xml" title="GeekCoder" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">XiaQi</h5>
+          <a href="mailto:igeekcoder@163.com" title="igeekcoder@163.com" class="mail">igeekcoder@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/igeekcoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">重构之常用设计模式</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">重构之常用设计模式</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-16T10:15:01.000Z" itemprop="datePublished" class="page-time">
+  2020-05-16
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#重构之常用设计模式"><span class="post-toc-number">1.</span> <span class="post-toc-text">重构之常用设计模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#设计模式是什么？"><span class="post-toc-number">1.0.0.1.</span> <span class="post-toc-text">设计模式是什么？</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#常用的设计模式"><span class="post-toc-number">1.0.0.2.</span> <span class="post-toc-text">常用的设计模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-单例模式"><span class="post-toc-number">1.0.0.2.1.</span> <span class="post-toc-text">1.单例模式</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-策略模式"><span class="post-toc-number">1.0.0.2.2.</span> <span class="post-toc-text">2.策略模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#策略模式的定义："><span class="post-toc-number">1.0.0.2.2.1.</span> <span class="post-toc-text">策略模式的定义：</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-责任链模式"><span class="post-toc-number">1.0.0.2.3.</span> <span class="post-toc-text">3.责任链模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#简单责任链"><span class="post-toc-number">1.0.0.2.3.1.</span> <span class="post-toc-text">简单责任链</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#可控节点的责任链："><span class="post-toc-number">1.0.0.2.3.2.</span> <span class="post-toc-text">可控节点的责任链：</span></a></li></ol></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#4-模板方法模式"><span class="post-toc-number">1.0.0.2.4.</span> <span class="post-toc-text">4.模板方法模式</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#设计模式落地"><span class="post-toc-number">1.0.0.3.</span> <span class="post-toc-text">设计模式落地</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-重构之设计模式"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">重构之常用设计模式</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-16 18:15:01" datetime="2020-05-16T10:15:01.000Z"  itemprop="datePublished">2020-05-16</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="重构之常用设计模式"><a href="#重构之常用设计模式" class="headerlink" title="重构之常用设计模式"></a>重构之常用设计模式</h1><p>程序员三板斧：<code>数据结构</code>、<code>算法</code>、<code>设计模式</code></p>
+<p>作为程序员无论你学习使用的是哪种语言，这三板斧都需要涉及甚至是需要深入了解的，这也是一个程序员基本功的展现，最近在做一些业务代码的重构也尝试使用了一些设计模式，今天和大家聊一聊我的一些见解和工作常用的一些<code>设计模式</code></p>
+<h4 id="设计模式是什么？"><a href="#设计模式是什么？" class="headerlink" title="设计模式是什么？"></a>设计模式是什么？</h4><blockquote>
+<p>设计模式（Design Pattern）是一套被反复使用、多数人知晓的、经过分类的、代码设计经验的总结。使用设计模式的目的：为了代码可重用性、让代码更容易被他人理解、保证代码可靠性。 设计模式使代码编写真正工程化；设计模式是软件工程的基石脉络，如同大厦的结构一样。</p>
+<p>项目中合理的运用设计模式可以完美的解决很多问题，每种模式在现实中都有相应的原理来与之对应，每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是它能被广泛应用的原因。</p>
+</blockquote>
+<h4 id="常用的设计模式"><a href="#常用的设计模式" class="headerlink" title="常用的设计模式"></a>常用的设计模式</h4><h5 id="1-单例模式"><a href="#1-单例模式" class="headerlink" title="1.单例模式"></a>1.单例模式</h5><p>单例（Singleton）模式要求一个类有且仅有一个实例，并且提供了一个全局的访问点。在实际开发过程中，我们常常需要保存一些数据实现全局共享，这时候就需要用到单例模式。单例模式是在实际开发过程中使用比较多的一种设计模式。</p>
+<blockquote>
+<p>单例模式在spring中广泛应用 spring默认bean也是单例，适用于一些无状态的类，减少类的创建和销毁，需要注意的是共享变量需要考虑线程安全的问题，相对比较简单对于有些设计模式大师来说可能都算不上一种设计模式，更确切的来说是一种方法技巧, 这里就不详细分析了</p>
+</blockquote>
+<h5 id="2-策略模式"><a href="#2-策略模式" class="headerlink" title="2.策略模式"></a>2.策略模式</h5><p>举个栗子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 订单支付</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> payType</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> orderBO</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span> <span class="params">(String payType, OrderBO orderBO)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">"paypal"</span>.equals(payType)) &#123;</span><br><span class="line">        <span class="comment">// paypal 支付逻辑</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"wechatPay"</span>.equals(payType)) &#123;</span><br><span class="line">        <span class="comment">// 微信支付逻辑</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"aliPay"</span>.equals(payType)) &#123;</span><br><span class="line">        <span class="comment">// 支付宝支付逻辑</span></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"unionPay"</span>.equals(payType))&#123;</span><br><span class="line">        <span class="comment">// 银联支付逻辑</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>类似上面这段代码，我们在平时开发中可能会经常见到，存在什么问题？条件分支多，并且可能有持续增长的趋势 ，更有些判断条件复杂，上下文中的参数可能相互影响 并且if 里面可能还需要嵌套 if 或者 循环体 整个代码看着就很臃肿改起来很容易出错， 下面我们用策略模式实现</p>
+</blockquote>
+<h6 id="策略模式的定义："><a href="#策略模式的定义：" class="headerlink" title="策略模式的定义："></a>策略模式的定义：</h6><p>策略模式定义了算法族，分别封装起来，让他们之间可以互相替换，此模式让算法的变化独立于使用算法的客户，一般情况下我们是将一种行为写成一个类方法，比如计算器类中有加、减、乘、除四种方法，而策略模式则是将每一种算法都写成一个类，然后动态地选择使用哪一个算法</p>
+<p><img src="/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2222997-69678af9fd117ec3.webp" alt="img"></p>
+<p>从 UML 类图中，我们可以看到，<code>策略模式</code> 主要包含三种角色：</p>
+<ul>
+<li><p><strong>上下文角色（Context）</strong>：用来操作策略的上下文环境，屏蔽高层模块（客户端）对策略，算法的直接访问，封装可能存在的变化；</p>
+</li>
+<li><p><strong>抽象策略角色（Strategy）</strong>：规定策略或算法的行为；</p>
+</li>
+<li><p><strong>具体策略角色（ConcreteStrategy）</strong>：具体的策略或算法实现；</p>
+</li>
+</ul>
+<p>在<code>Spring</code>中使用策略模式后：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 支付接口</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> orderBO</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Payment</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pay</span><span class="params">( OrderBO orderBO)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(<span class="string">"paypal"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PayPal</span> <span class="keyword">implements</span> <span class="title">Payment</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">(OrderBO orderBO)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// paypal 支付</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(<span class="string">"wechatPay"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WechatPay</span> <span class="keyword">implements</span> <span class="title">Payment</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">(OrderBO orderBO)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// wechatPay 支付逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AliPay</span> <span class="keyword">implements</span> <span class="title">Payment</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">(OrderBO orderBO)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// aliPay 支付逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"aliPay"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">........</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PayTest</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, Payment&gt; paymentMap;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">(String payType, OrderBO orderBO)</span> </span>&#123;</span><br><span class="line">        Payment payment = paymentMap.get(payType);</span><br><span class="line">        payment.pay(orderBO);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这样各种支付方式相互独立清晰，需要接入新的支付方式只需要实现<code>Payment</code> 接口就可以了原有的支付逻辑都是可以不用去改变，从而实现 开闭原则（对扩展开放，对修改关闭）。</p>
+<h5 id="3-责任链模式"><a href="#3-责任链模式" class="headerlink" title="3.责任链模式"></a>3.责任链模式</h5><p>责任链，顾名思义，就是用来处理相关事务责任的一条执行链，执行链上有多个节点，每个节点都有机会（条件匹配）处理请求事务，如果某个节点处理完了就可以根据实际业务需求传递给下一个节点继续处理或者返回处理完毕。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2222997-7caeb17aacd80332.webp" alt="img" title>
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+
+<h6 id="简单责任链"><a href="#简单责任链" class="headerlink" title="简单责任链"></a>简单责任链</h6><p>举个栗子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注册</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(CustomerInfo customerInfo)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 保存用户</span></span><br><span class="line">    save(customerInfo);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1.发送邮件</span></span><br><span class="line">    sendSuccessEmail(customerInfo.getEmail());</span><br><span class="line">    <span class="comment">// 2.初始化setting</span></span><br><span class="line">    initSetting(customerInfo);</span><br><span class="line">    <span class="comment">// 3.购买默认0元套餐</span></span><br><span class="line">    buyCombo(customerInfo.getCustomerCode());</span><br><span class="line">    <span class="comment">// 4.默认选择</span></span><br><span class="line">    selectPackageMethod(customerInfo);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 5. 6 7</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 下单</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createOrder</span><span class="params">(OrderBO orderBO)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 1.基本参数检查</span></span><br><span class="line">    checkParam(orderBO);</span><br><span class="line">    <span class="comment">// 2.风控检查</span></span><br><span class="line">    riskCheck(orderBo)</span><br><span class="line">    <span class="comment">// 3.商品库存检查</span></span><br><span class="line">    checkGoods(orderBo)</span><br><span class="line">    <span class="comment">// 4. 5 6</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>以上是一段伪代码 </p>
+<p>第一注册功能 注册完之后需要给用户<code>发送邮件</code>，<code>初始化默认设置</code>，<code>购买默认套餐</code>，<code>选择默认打包服务</code></p>
+<p>第二个是一个下单功能 下单前要做各种检查 没准什么时候又来个<code>购买的服务数量检查</code>等等</p>
+</blockquote>
+<p>在spring中使用有顺序的责任链</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span>  <span class="class"><span class="keyword">class</span> <span class="title">AfterRegisterHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AfterRegisterHandler next;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">after</span><span class="params">(CustomerInfo customerInfo)</span> </span>&#123;</span><br><span class="line">        doAfter(customerInfo);</span><br><span class="line">        <span class="keyword">if</span> (getNext()!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            getNext().doAfter(customerInfo);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">doAfter</span><span class="params">(CustomerInfo customerInfo)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Order</span>(<span class="number">1</span>)</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DefaultRegisterAfterProcess</span> <span class="keyword">extends</span> <span class="title">RegisterAfterProcess</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAfter</span><span class="params">(CustomerInfo customerInfo)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 发送邮件</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Order</span>(<span class="number">2</span>)</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ComboRegisterAfterProcess</span> <span class="keyword">extends</span> <span class="title">RegisterAfterProcess</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAfter</span><span class="params">(CustomerInfo customerInfo)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 购买默认套餐</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span>  <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;RegisterAfterProcess&gt; registerAfterProcessList;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initRegisterAfterProcessPattern</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> size = registerAfterProcessList.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i == size-<span class="number">1</span>)&#123;</span><br><span class="line">                registerAfterProcessList.get(i).setNext(<span class="keyword">null</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                registerAfterProcessList.get(i).setNext(registerAfterProcessList.get(i+<span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(CustomerInfo customerInfo)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 保存用户</span></span><br><span class="line">        save(customerInfo);</span><br><span class="line">        <span class="comment">// 处理 after register</span></span><br><span class="line">        iregisterAfterProcessList.get(<span class="number">0</span>).after(customerInfo);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="可控节点的责任链："><a href="#可控节点的责任链：" class="headerlink" title="可控节点的责任链："></a>可控节点的责任链：</h6><p><a href="https://blog.csdn.net/weixin_33910460/article/details/92608675" target="_blank" rel="noopener">https://blog.csdn.net/weixin_33910460/article/details/92608675</a> </p>
+<h5 id="4-模板方法模式"><a href="#4-模板方法模式" class="headerlink" title="4.模板方法模式"></a>4.模板方法模式</h5><p>定义一个操作中的算法骨架，而将算法的一些步骤延迟到子类中，使得子类可以不改变该算法结构的情况下重定义该算法的某些特定步骤。它是一种类行为型模式。</p>
+<p><img src="/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2222997-f9f28c8d942ebd8d.webp" alt="img"></p>
+<p>举个栗子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;OrderPoolBo&gt; <span class="title">pullOrder</span><span class="params">(OrderRequest req)</span> </span>&#123;</span><br><span class="line">    String shopType = req.getShopType();</span><br><span class="line">    <span class="keyword">if</span>(shopType == <span class="string">"BS"</span>)&#123;</span><br><span class="line">        List&lt;BsOrder&gt; list = orderProvideToBdFeignClient.pullOrder(req);</span><br><span class="line">        <span class="comment">// 检查订阅关系</span></span><br><span class="line">        <span class="comment">// 过滤订单</span></span><br><span class="line">        <span class="comment">// 转成订单池的订单保存到数据库            </span></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (shopType == <span class="string">"shopify"</span>)&#123;</span><br><span class="line">        List&lt;ShopifyOrder&gt; list = shopifyService.pullOrder(req);</span><br><span class="line">        <span class="comment">// 检查订阅关系</span></span><br><span class="line">        <span class="comment">// 过滤订单</span></span><br><span class="line">        <span class="comment">// 转成订单池的订单保存到数据库</span></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(shopType == <span class="string">"wooc"</span>)&#123;</span><br><span class="line">        List&lt;woocOrer&gt; list = woocService.pullOrder(req);</span><br><span class="line">        <span class="comment">// 检查订阅关系</span></span><br><span class="line">        <span class="comment">// 过滤订单</span></span><br><span class="line">        <span class="comment">// 转成订单池的订单保存到数据库</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上使我们目前拉单的一段代码流程大致相似 调用不同的第三方不同类型的订单最后过滤转化成统一的订单池订单，我们可以把相同的流程抽象出来不同的订单用泛型实现</p>
+<p><strong>重构后的UM类图</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20200727001143558.png" alt="image-20200727001143558" title>
+                </div>
+                <div class="image-caption">image-20200727001143558</div>
+            </figure>
+
+
+
+<p><strong>店铺安装或者绑定类图</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/image-20200727001352214.png" alt="image-20200727001352214" title>
+                </div>
+                <div class="image-caption">image-20200727001352214</div>
+            </figure>
+
+
+
+<h4 id="设计模式落地"><a href="#设计模式落地" class="headerlink" title="设计模式落地"></a>设计模式落地</h4><p>设计模式提供的更多的是一种设计思想，如何运用还是要结合实际的场景。对于一个功能和需求一开始并不建议强扣设计模式，很多时候刚开始的需求是相对简单的，经过慢慢积累变的复杂化，这时候我们要改一些逻辑可能真的要牵一发而动全身，随着需求的不断完善我们可以从中抽丝剥茧提炼出一些公用的或者流程性的点，去不断的优化自己的代码。世界上没有完美的设计模式，结合自己的业务提供最大限度的可扩展、修改方便、阅读清晰就是最适合的设计模式，当然这也不是一蹴而就的代码本身就是一个不断优化的过程，只是设计模式会给我们提供多一点的参考，更多的是需要尝试解耦去分析业务以及在实际场景中的应用去实践。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2020-11-19T02:53:54.240Z" itemprop="dateUpdated">2020-11-19 10:53:54</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://igeek2020.gitee.io">
+            <img src="/img/avatar.png" alt="XiaQi">
+            XiaQi
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%87%8D%E6%9E%84/" rel="tag">重构</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/&title=《重构之常用设计模式》 — GeekCoder&pic=http://igeek2020.gitee.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/&title=《重构之常用设计模式》 — GeekCoder&source=记录学习，分享生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《重构之常用设计模式》 — GeekCoder&url=http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/&via=http://igeek2020.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">设计模式-模板方法</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">如何使用Hexo搭建自己的个人博客</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>XiaQi &copy; 2015 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/&title=《重构之常用设计模式》 — GeekCoder&pic=http://igeek2020.gitee.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/&title=《重构之常用设计模式》 — GeekCoder&source=记录学习，分享生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《重构之常用设计模式》 — GeekCoder&url=http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/&via=http://igeek2020.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://igeek2020.gitee.io/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADLElEQVR42u3aQY7iQAwFUO5/6R5pdqPphG+bSMR5rFALUvWKhdv+9XrFr5+/r6O/HL0/f87P4PX/E15XvLCxsbFvws4XOFrsfPmEmu/k6JPVJ2BjY2PvY1e3Wy1m59+qlsnJZ7CxsbGfzD4vV81CcgruFVdsbGxs7GoBS1qUKjgvUdjY2NjYvUF8tTjlBS8/slHhxMbGxl7Erga93/z+wnwbGxsb+yvZvYsyvTFTHjN8doD1y4rY2NjYi9j5WCcfM02i2eSZ1WM6LG/Y2NjYK9i9R/di4GqPUB0tFdoVbGxs7HXs6jB90pZUD7oaV0SFDRsbG3sduzemmZS33lg/L29Rso2NjY29gp2Ujfxf/3y7yYofazzOd4uNjY19c3YeuyatRR4nTMpkNU6OihY2Njb2zdnzwVDvgJJiOTmOw9WxsbGxH8CeRLbVlqMKSPb2pr3BxsbGXsqeDNx7sUEeS+RDq+jHw8bGxl7Hzsf0k+OohgG9p0WrYGNjYy9il9Pg+BpNXqImrUi1iGJjY2M/gZ0UsB64F0L0BkzJ3rCxsbF3sMsnNB7T58Om0S95XoyxsbGxF7Hn+EnxmwyP8hUPDwUbGxt7ETvZymTcn4PzwdZ8LIWNjY39HPakhbiijCVHVjhcbGxs7JuzexdokiOojv4nB5q3KIc3lbCxsbFvy55/eRIA5J+vXvRJLvRgY2Njb2Xn4568DaiOqPIh0agDw8bGxl7Erm7oisF9Hj9ExSkuk9jY2Nh3Z89hvUh4Xuqq4fQ/77GxsbHXsSeRbXM0H0cC1ZIWHQ02Njb2InY1BqgOpHrj+7xp6V0DwsbGxt7EzoPbK9qDSWCcD6ewsbGxn8CuPm5+7WYSQuTB7ZtkGxsbG3sRexKvTq71VEtUL6745e/Y2NjYi9jVjfai3GqZ7EUI1eYHGxsbexO7er2mFwP02pj5eCsKerGxsbFXsKsjp+ogKW8VPjVaenNk2NjY2I9kJ+3EpIBNLvfku8LGxsbGzpuKarNRbUV662JjY2NvZeeD/slFnORK0GeRH5ilYWNjY389uxq4JshCS1CMk6styuiaETY2Nva3s/8AiaSh9dy3w/8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

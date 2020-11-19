@@ -14,22 +14,20 @@
     
     
     
-    <title>NIO-buffer | GeekCoder | 记录学习，分享生活</title>
+    <title>Tags: 重构 | GeekCoder | 记录学习，分享生活</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="">
-    <meta name="description" content="1.BIO   NIO 2.BIO &amp; NIO的基本使用 3.NIO的新特性 buffer example: IntBuffer     capacity   postion  limit  mark       get()   put()   mark()   reset()  flip()  clear()  rewind()">
-<meta property="og:type" content="article">
-<meta property="og:title" content="NIO-buffer">
-<meta property="og:url" content="http://igeek2020.gitee.io/2020/07/12/NIO-buffer/index.html">
+    <meta name="description" content="记录学习，分享生活">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GeekCoder">
+<meta property="og:url" content="http://igeek2020.gitee.io/tags/%E9%87%8D%E6%9E%84/index.html">
 <meta property="og:site_name" content="GeekCoder">
-<meta property="og:description" content="1.BIO   NIO 2.BIO &amp; NIO的基本使用 3.NIO的新特性 buffer example: IntBuffer     capacity   postion  limit  mark       get()   put()   mark()   reset()  flip()  clear()  rewind()">
+<meta property="og:description" content="记录学习，分享生活">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-07-12T12:31:27.572Z">
-<meta property="article:modified_time" content="2020-07-12T12:35:17.005Z">
 <meta property="article:author" content="XiaQi">
 <meta name="twitter:card" content="summary">
     
@@ -47,7 +45,7 @@
 <body>
     <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
+    <aside id="menu"  >
   <div class="inner flex-row-vertical">
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
@@ -80,7 +78,7 @@
               </a>
             </li>
         
-            <li class="waves-block waves-effect">
+            <li class="waves-block waves-effect active">
               <a href="/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
@@ -112,7 +110,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">NIO-buffer</div>
+        <div class="flex-col header-title ellipsis">Tags: 重构</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -131,184 +129,93 @@
         
     </div>
 </header>
-<header class="content-header post-header">
+<header class="content-header tags-header">
 
     <div class="container fade-scale">
-        <h1 class="title">NIO-buffer</h1>
+        <h1 class="title">Tags: 重构</h1>
         <h5 class="subtitle">
-            
-                <time datetime="2020-07-12T12:31:27.572Z" itemprop="datePublished" class="page-time">
-  2020-07-12
-</time>
-
-
             
         </h5>
     </div>
 
     
+<div class="tabs-bar container">
+    <nav class="tags-list">
+        <a href="/tags" style="-webkit-order:-1;order:-1" class="tags-list-item waves-effect waves-button waves-light
+            ">All</a>
+        
+
+            <a href="/tags/Git/" style="-webkit-order:2;order:2" class="tags-list-item waves-effect waves-button waves-light">Git</a>
+
+        
+
+            <a href="/tags/Mybatis/" style="-webkit-order:3;order:3" class="tags-list-item waves-effect waves-button waves-light">Mybatis</a>
+
+        
+
+            <a href="/tags/hexo/" style="-webkit-order:4;order:4" class="tags-list-item waves-effect waves-button waves-light">hexo</a>
+
+        
+
+            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="-webkit-order:0;order:0" class="tags-list-item waves-effect waves-button waves-light">设计模式</a>
+
+        
+
+            <a href="/tags/%E9%87%8D%E6%9E%84/" style="-webkit-order:1;order:1" class="tags-list-item waves-effect waves-button waves-light active">重构</a>
+
+        
+    </nav>
+    <!-- PC show more-->
+    <div class="tags-list-more">
+        <a href="javascript:;" onclick="BLOG.tabBar(this)" class="action tags-list-item waves-effect waves-circle waves-light"><i class="icon icon-ellipsis-h"></i></a>
+    </div>
+</div>
+
 
 
 </header>
 
-
-<div class="container body-wrap">
+<div class="container body-wrap fade">
     
+            <div class="waterfall">
+          
 
-<article id="post-NIO-buffer"
-  class="post-article article-type-post fade" itemprop="blogPost">
+            <div class="waterfall-item">
+  <article class="article-card archive-article">
+    <div class="post-meta">
+      <time class="post-time" title="2020-05-16 18:15:01" datetime="2020-05-16T10:15:01.000Z"  itemprop="datePublished">2020-05-16</time>
 
-    <div class="post-card">
-        <h1 class="post-card-title">NIO-buffer</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2020-07-12 20:31:27" datetime="2020-07-12T12:31:27.572Z"  itemprop="datePublished">2020-07-12</time>
-
-            
-
-
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
+      
 
 
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <p>1.BIO   NIO</p>
-<p>2.BIO &amp; NIO的基本使用</p>
-<p>3.NIO的新特性 buffer</p>
-<p>example: IntBuffer     <code>capacity</code>   <code>postion</code>  <code>limit</code>  <code>mark</code>      </p>
-<p>get()  </p>
-<p>put() </p>
-<p> mark() </p>
-<p> reset()</p>
-<p> flip()</p>
-<p> clear()</p>
-<p> rewind()</p>
-
-        </div>
-
-        <blockquote class="post-copyright">
-    
-    <div class="content">
-        
-<span class="post-time">
-    Last updated: <time datetime="2020-07-12T12:35:17.005Z" itemprop="dateUpdated">2020-07-12 20:35:17</time>
-</span><br>
-
-
-        
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/07/12/NIO-buffer/" target="_blank" rel="external">http://igeek2020.gitee.io/2020/07/12/NIO-buffer/</a>
-        
     </div>
     
-    <footer>
-        <a href="http://igeek2020.gitee.io">
-            <img src="/img/avatar.png" alt="XiaQi">
-            XiaQi
-        </a>
-    </footer>
-</blockquote>
-
-        
 
 
-        <div class="post-footer">
-            
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2020/05/16/%E9%87%8D%E6%9E%84%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">重构之常用设计模式</a>
+    </h3>
+  
 
-            
-<div class="page-share-wrap">
+
+
     
+    <div class="post-footer">
+        
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%87%8D%E6%9E%84/" rel="tag">重构</a></li></ul>
 
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://igeek2020.gitee.io/2020/07/12/NIO-buffer/&title=《NIO-buffer》 — GeekCoder&pic=http://igeek2020.gitee.io/img/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://igeek2020.gitee.io/2020/07/12/NIO-buffer/&title=《NIO-buffer》 — GeekCoder&source=记录学习，分享生活" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://igeek2020.gitee.io/2020/07/12/NIO-buffer/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《NIO-buffer》 — GeekCoder&url=http://igeek2020.gitee.io/2020/07/12/NIO-buffer/&via=http://igeek2020.gitee.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://igeek2020.gitee.io/2020/07/12/NIO-buffer/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
+    </div>
+    
+  </article>
 </div>
 
-
-
-        </div>
-    </div>
-
+        
+            </div>
+        
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/2020/05/20/Git%E4%BD%BF%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Gits使用小技巧</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</article>
-
-
-
 </div>
+
 
         <footer class="footer">
     <div class="top">
@@ -349,7 +256,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://igeek2020.gitee.io/2020/07/12/NIO-buffer/&title=《NIO-buffer》 — GeekCoder&pic=http://igeek2020.gitee.io/img/avatar.png" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://igeek2020.gitee.io/tags/%E9%87%8D%E6%9E%84/&title=GeekCoder&pic=http://igeek2020.gitee.io/img/avatar.png" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -359,22 +266,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://igeek2020.gitee.io/2020/07/12/NIO-buffer/&title=《NIO-buffer》 — GeekCoder&source=记录学习，分享生活" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://igeek2020.gitee.io/tags/%E9%87%8D%E6%9E%84/&title=GeekCoder&source=记录学习，分享生活" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://igeek2020.gitee.io/2020/07/12/NIO-buffer/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://igeek2020.gitee.io/tags/%E9%87%8D%E6%9E%84/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《NIO-buffer》 — GeekCoder&url=http://igeek2020.gitee.io/2020/07/12/NIO-buffer/&via=http://igeek2020.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=GeekCoder&url=http://igeek2020.gitee.io/tags/%E9%87%8D%E6%9E%84/&via=http://igeek2020.gitee.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://igeek2020.gitee.io/2020/07/12/NIO-buffer/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://igeek2020.gitee.io/tags/%E9%87%8D%E6%9E%84/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -385,7 +292,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIUlEQVR42u3awa7DMAhE0fz/T6fbJ1X2mxmcSoGbVdXGjU8WCAzXJV/3n+uJ+7/XXk9cMGDAeC3j3l6re5QHr/5h9et+1X4PMGDAmMBQNqGv0sH7b5S9wYABA0YpCG5h7mcYMGDAcAOunvy5CSIMGDBgVIpYd5WeLP60FocBA8YLGe5h/S8/P9LfgAEDxqsYt3kpSaEbLvX7l/8DAwaM1gw9wGW8Smy0hzlgwIDRmqHf6harWcG5P4Cz00cYMGC0Y7ijWnpqqGzLbXMuMTBgwGjEcAtUN1GrBN9S8gcDBoxGDP1h7j1ZcllpRcCAAWMCI4tjZwNoNvYBAwaMaQxlgbuVrFXpBmIYMGBMYOhH8G5BW2Ebp4YwYMAYydABWdMxG9pYBmUYMGA0ZeiNAWXTp8YswtEKGDBgDGAoh1zK95URDf2FLoctYMCAMZKRJXlZmzNMEGHAgDGAoYdOfVuVoTG3qQADBozeDPfgzG1wumw3Jb30PicMGDBeztDDazaEUQ/HykuHAQPGHIadhEWHce4oxoFhCxgwYLRg6MsqKWO92blcBQMGjKaM27zcBygp5oH6GwYMGK0Z2cCWW3aeOrDTy2wYMGD0Y2SlZtZ0rOSwUk8DBgwYrRnZgX7WeqwjYcCAASM7RNPDaNYofSTgwoABYwAjS+wywD+FNAwYMAYwlKK0PnJhdFaF1woDBow5jKx01A/jsoRS+U8YMGAMYHwAhlwZBqTNTh0AAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aO47jMBAFwLn/pb3pJJbfa8qLEVmMDEEQWQ4a7M/PT7xev1b+PPlm/vyGhYGB8VjG63K9O+673+t/xLt9350NAwPjHMZ14Lt+5xq8EoiL72BgYGBcBsrk6LN3MDAwMO5irD/5EwEXAwPjzzOSJPY6ycxDcx64v5KLY2BgPJCRV93//++v9DcwMDAexXiVq21Jti2H2cLAwNibsdKAvLdIN/vLMDAwTmDkxfo8lc3B+TX0wxcwMDC2ZiSl+Vkbsj3WepkPAwNjV8asWL+exLbVsw87YmBgHMO4t9GYDFvcFb4xMDD2Zsyug8lVcnasHL8U9TEwMB7LSMr97aVtvTyXBGUMDIwTGPlm+XHzxsAKFQMD4wRGkrjmQxLtcEa++4f3MTAwtmbMRrXa99sxi1mii4GBsTejHdWaPfnGFRMDA+M0RlLSylsFs5A6K+phYGCczJiV4WYtyXYIAwMD42RGmy62ndJZGC3uthgYGJsyZsFuhmmHzwowBgbGMYxZi3H2hXyXKG3GwMA4gLFe9M9bCystzw+TIxgYGNsxXuVqL3z5hbJtPwynRTAwMB7IaIctZkGzHZhIjr40FoaBgfFARj60ml/y2oGwYeLazmtgYGA8nJEHyjxlbccs8tCPgYGB0R59pdzWjlxgYGBg5AG3bWqujHRE100MDIwDGHki2obLfJyiLcNhYGCcw2hTxzwpnQ2K3XVhxcDA2ILxD2eFIuA9EfLDAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 

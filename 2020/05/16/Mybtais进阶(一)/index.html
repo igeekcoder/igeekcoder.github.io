@@ -1,9 +1,201 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Mybatis进阶（一） · GeekCoder</title><meta name="description" content="Mybatis进阶（一） - EthanXQ"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/prontera.css"><link rel="search" type="application/opensearchdescription+xml" href="http://igeek2020.gitee.io/atom.xml" title="GeekCoder"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="GeekCoder" type="application/atom+xml">
-</head><body><header class="feature-header"><nav class="component-nav"><ul><div class="logo-container"><a href="/"><h2 class="title">GeekCoder</h2></a></div><a href="/" target="_self" class="li component-nav-item"><p>INDEX</p></a><a href="/archives" target="_self" class="li component-nav-item"><p>ARCHIVES</p></a><a href="/tags" target="_self" class="li component-nav-item"><p>TAGS</p></a><ul class="shortcut-icons"><a href="https://github.com/igeekcoder" target="_blank"><img src="/images/github.svg" class="icon"></a></ul></ul></nav></header><main class="container"><div id="post-container"><div class="post"><article class="post-block"><h1 class="post-title">Mybatis进阶（一）</h1><div class="post-info">May 16, 2020</div><div class="post-content"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><code>MyBatis</code> 是一个基于Java的持久层框架，相信大家应该都有所了解，平时工作中你也可能正在使用,但是你真的了解其底层实现吗？MyBatis的执行流程是怎么样的？一级缓存和二级缓存又是怎么实现的呢？查询的结果又是如何映射到我们的实体中的？等等一系列问题接下来我会以多个篇幅来从源码的角度和大家一起揭秘MyBatis的面纱。</p>
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Mybatis进阶（一） | GeekCoder | 记录学习，分享生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Mybatis">
+    <meta name="description" content="前言MyBatis 是一个基于Java的持久层框架，相信大家应该都有所了解，平时工作中你也可能正在使用,但是你真的了解其底层实现吗？MyBatis的执行流程是怎么样的？一级缓存和二级缓存又是怎么实现的呢？查询的结果又是如何映射到我们的实体中的？等等一系列问题接下来我会以多个篇幅来从源码的角度和大家一起揭秘MyBatis的面纱。 JDBC执行过程在深入Mybatis之前我们先来回顾一下，JDBC是如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis进阶（一）">
+<meta property="og:url" content="http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/index.html">
+<meta property="og:site_name" content="GeekCoder">
+<meta property="og:description" content="前言MyBatis 是一个基于Java的持久层框架，相信大家应该都有所了解，平时工作中你也可能正在使用,但是你真的了解其底层实现吗？MyBatis的执行流程是怎么样的？一级缓存和二级缓存又是怎么实现的呢？查询的结果又是如何映射到我们的实体中的？等等一系列问题接下来我会以多个篇幅来从源码的角度和大家一起揭秘MyBatis的面纱。 JDBC执行过程在深入Mybatis之前我们先来回顾一下，JDBC是如">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/image-20200704214556230.png">
+<meta property="article:published_time" content="2020-05-16T10:15:01.000Z">
+<meta property="article:modified_time" content="2020-07-04T14:16:10.331Z">
+<meta property="article:author" content="XiaQi">
+<meta property="article:tag" content="Mybatis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/image-20200704214556230.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="GeekCoder" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">XiaQi</h5>
+          <a href="mailto:igeekcoder@163.com" title="igeekcoder@163.com" class="mail">igeekcoder@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/igeekcoder" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Mybatis进阶（一）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Mybatis进阶（一）</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-16T10:15:01.000Z" itemprop="datePublished" class="page-time">
+  2020-05-16
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#JDBC执行过程"><span class="post-toc-number">2.</span> <span class="post-toc-text">JDBC执行过程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Mybatis执行过程"><span class="post-toc-number">3.</span> <span class="post-toc-text">Mybatis执行过程</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Mybtais进阶(一)"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Mybatis进阶（一）</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-16 18:15:01" datetime="2020-05-16T10:15:01.000Z"  itemprop="datePublished">2020-05-16</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><code>MyBatis</code> 是一个基于Java的持久层框架，相信大家应该都有所了解，平时工作中你也可能正在使用,但是你真的了解其底层实现吗？MyBatis的执行流程是怎么样的？一级缓存和二级缓存又是怎么实现的呢？查询的结果又是如何映射到我们的实体中的？等等一系列问题接下来我会以多个篇幅来从源码的角度和大家一起揭秘MyBatis的面纱。</p>
 <h3 id="JDBC执行过程"><a href="#JDBC执行过程" class="headerlink" title="JDBC执行过程"></a>JDBC执行过程</h3><p>在深入<code>Mybatis</code>之前我们先来回顾一下，<code>JDBC</code>是如何操作数据库的 :</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.获得数据库连接</span></span><br><span class="line">Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);</span><br><span class="line"><span class="comment">// 2.预编译SQL</span></span><br><span class="line">PreparedStatement sql = connection.prepareStatement(<span class="string">"select * from users where id = ?"</span>);</span><br><span class="line">sql.setInt(<span class="number">1</span>, <span class="number">10</span>);</span><br><span class="line"><span class="comment">// 3.执行SQL</span></span><br><span class="line">sql.execute();</span><br><span class="line"><span class="comment">// 4.读取结果</span></span><br><span class="line">ResultSet resultSet = sql.getResultSet();</span><br><span class="line"><span class="keyword">while</span> (resultSet.next()) &#123;</span><br><span class="line">	System.out.println(resultSet.getString(<span class="number">1</span>));</span><br><span class="line">	System.out.println(resultSet.getString(<span class="string">"name"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/image-20200704214556230.png" alt="image-20200704214556230"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/image-20200704214556230.png" alt="image-20200704214556230" title>
+                </div>
+                <div class="image-caption">image-20200704214556230</div>
+            </figure>
+
 <blockquote>
 <p>★ JDBC的三种执行器：</p>
 <ul>
@@ -31,4 +223,277 @@
 <p>简单工厂模式：</p>
 <p>模板方法模式：</p>
 <p>MetaObject</p>
-</div></article></div><div id="disqus_thread"></div></div></main><footer class="footer-container"><div class="paginator"><a href="/2020/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/" class="prev">PREV</a><a href="/2020/05/16/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="next">NEXT</a></div><div class="copyright"><p>© 2017 - 2020 <a href="http://igeek2020.gitee.io">EthanXQ</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/AngryPowman/hexo-theme-prontera" target="_blank">hexo-theme-prontera</a>.</p></div></footer><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"igeekcoder",'auto');ga('send','pageview');</script></body></html>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2020-07-04T14:16:10.331Z" itemprop="dateUpdated">2020-07-04 22:16:10</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/" target="_blank" rel="external">http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="http://igeek2020.gitee.io">
+            <img src="/img/avatar.png" alt="XiaQi">
+            XiaQi
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/&title=《Mybatis进阶（一）》 — GeekCoder&pic=http://igeek2020.gitee.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/&title=《Mybatis进阶（一）》 — GeekCoder&source=记录学习，分享生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mybatis进阶（一）》 — GeekCoder&url=http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/&via=http://igeek2020.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/05/20/GitFlow%E5%B7%A5%E4%BD%9C%E6%B5%81/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">GitFlow工作流</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">设计模式-模板方法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>XiaQi &copy; 2015 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/&title=《Mybatis进阶（一）》 — GeekCoder&pic=http://igeek2020.gitee.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/&title=《Mybatis进阶（一）》 — GeekCoder&source=记录学习，分享生活" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mybatis进阶（一）》 — GeekCoder&url=http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/&via=http://igeek2020.gitee.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://igeek2020.gitee.io/2020/05/16/Mybtais%E8%BF%9B%E9%98%B6(%E4%B8%80)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuklEQVR42u3aQW7jQAwEwPz/096rgYWcbnIG6wVKp0C2oykdRKqHPz/x8Xo73s/8/en7+c//4enTp28+/fbAgYeHh7dY+tMFni72+Tuz85+vmK8ZDw8P7zbv8wWSx3q+iNltHd5KPDw8vC/jzZrpFoyHh4f3//JyfN6Uz5psPDw8vG/g7dvffcGY3b5jWQseHh5et55oF+l7/r6yv4eHh4e33lXPH777EtL+n2iFeHh4eBd47UM5abjbUapTE1OPJQQPDw/vGm+zEXU2CG4LUpG14OHh4a15+eJmnybFYDOUUFQVPDw8vEO8ZBu+DVLbcYF8VbPShYeHh3ePl7/ez4KJdtyqbaaL6oeHh4d3lDe7zKyPTUrIgYAYDw8P7yhvFjfsBwLazbYktijeFfDw8PAWvNll8iA4Dyw2oXBRHvDw8PAuvLnPItokvJhtm7URMx4eHt5tXrLEPMDdF4b8fLQePDw8vGu8WRt9NsJoV3JgZw8PDw9vxJtt3ueLSxaUD3Llg1bRZhgeHh7eiNfGBPszs98OCwkeHh7eBV7+4G7jgDbC2LfUxWQZHh4e3oLXxrKbu/iKj015GO6n4eHh4Y3C3D0gZ+S5ax5hFLt8eHh4eAteO9I0e97OSs4mSsbDw8O7zUtChGgPbbRxlY9krSYj8PDw8A7x8n83A+Rhbn6L8+EwPDw8vBu8pFFuY9akeLQFZlio8PDw8C7wkofvqUZ8v7U2ezHAw8PDO8t7lUcbv7Y3JW/3ixgCDw8P7ygvP9qhqITRtuP5b/Hw8PBu8zYh7CwgaL+TFIbojQEPDw/vKK9dxGYUYNOa54NZeHh4eN/AawPfvP3dxMG/tON4eHh4/5S3GS/I4+BNrPwzqzl4eHh4I14bRszGDtobtxlWwMPDw7vHmxWPtrVtH+ttDHFgdAAPDw/vd94fftxzqCxjTCcAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
